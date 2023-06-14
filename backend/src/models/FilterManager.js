@@ -6,15 +6,15 @@ class FilterManager extends AbstractManager {
   }
 
   getGenre() {
-    return this.database.query(`select name from genre`);
+    return this.database.query(`select * from genre`);
   }
 
   getPrice() {
-    return this.database.query(`select value from prix`);
+    return this.database.query(`select * from prix`);
   }
 
   getConsole() {
-    return this.database.query(`select type from console`);
+    return this.database.query(`select * from console`);
   }
 }
 module.exports = FilterManager;

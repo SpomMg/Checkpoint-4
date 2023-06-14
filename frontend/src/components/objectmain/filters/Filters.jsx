@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import useApi from "../../../services/useApi";
+import Objects from "../object/Object";
 
 function Filters() {
+  const [objects, setObjects] = useState([]);
   const [genreOptions, setGenreOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
   const [consoleOptions, setConsoleOptions] = useState([]);
@@ -47,22 +49,75 @@ function Filters() {
     });
   }, []);
 
+  useEffect(() => {
+    api.get("/object").then((response) => {
+      setObjects(response.data);
+    });
+  }, []);
+
+  const resetFilters = () => {
+    genreRef.current.value = 0;
+    priceRef.current.value = 0;
+    consoleRef.current.value = 0;
+    api.get("/object").then((response) => {
+      setObjects(response.data);
+    });
+  };
+
+  const MultiFilter = () => {
+    const genremultifilter = genreRef.current.value;
+    const pricemultifilter = priceRef.current.value;
+    const consolemultifilter = consoleRef.current.value;
+    const currentFilters = {
+      genremultifilter,
+      pricemultifilter,
+      consolemultifilter,
+    };
+    api
+      .get("/object/filter", {
+        params: {
+          filter: currentFilters,
+        },
+      })
+      .then((response) => {
+        setObjects(response.data);
+      });
+  };
+
   return (
     <div>
       <div className="offersemploi-filters">
-        <select className="offersemploi-select" ref={genreRef}>
+        <select
+          className="offersemploi-select"
+          ref={genreRef}
+          onChange={() => MultiFilter()}
+        >
           <option value="0">Genre</option>
           {genreOptions}
         </select>
-        <select className="offersemploi-select" ref={priceRef}>
+        <select
+          className="offersemploi-select"
+          ref={priceRef}
+          onChange={() => MultiFilter()}
+        >
           <option value="0">Prix</option>
           {priceOptions}
         </select>
-        <select className="offersemploi-select" ref={consoleRef}>
+        <select
+          className="offersemploi-select"
+          ref={consoleRef}
+          onChange={() => MultiFilter()}
+        >
           <option value="0">Console</option>
           {consoleOptions}
         </select>
+        <button type="button" onClick={resetFilters}>
+          Reinitialiser
+        </button>
       </div>
+      {objects.map((object) => {
+        return <Objects key={object.id} object={object} />;
+      })}
     </div>
   );
 }
