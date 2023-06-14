@@ -4,7 +4,6 @@ export default function Creation() {
   return (
     <header className="App-header">
       <Myheader />
-      <p>mais je créé la</p>
     </header>
   );
 }

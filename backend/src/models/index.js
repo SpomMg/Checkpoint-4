@@ -39,6 +39,11 @@ const ObjectManager = require("./ObjectManager");
 models.object = new ObjectManager();
 models.object.setDatabase(pool);
 
+const FilterManager = require("./FilterManager");
+
+models.filter = new FilterManager();
+models.filter.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
