@@ -50,6 +50,9 @@ function Filters() {
   }, []);
 
   useEffect(() => {
+    genreRef.current.value = 0;
+    priceRef.current.value = 0;
+    consoleRef.current.value = 0;
     api.get("/object").then((response) => {
       setObjects(response.data);
     });

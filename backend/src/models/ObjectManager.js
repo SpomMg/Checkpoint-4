@@ -49,11 +49,15 @@ class ObjectManager extends AbstractManager {
     return this.database.query(sql, dependencies);
   }
 
-  offerpost(title, genrevalue, pricevalue, consolevalue, info) {
+  objectpost(title, genrevalue, pricevalue, consolevalue, info) {
     return this.database.query(
       `insert into ${this.table} (title, consoleId, prixId, genreId, info ) VALUES (?,?,?,?,?)`,
       [title, consolevalue, pricevalue, genrevalue, info]
     );
+  }
+
+  deleteObject(id) {
+    return this.database.query(`DELETE FROM ${this.table} WHERE id=?`, [id]);
   }
 }
 module.exports = ObjectManager;

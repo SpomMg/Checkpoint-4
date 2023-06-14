@@ -1,11 +1,23 @@
 /* eslint-disable react/destructuring-assignment */
 import { useState } from "react";
+import useApi from "../../../services/useApi";
 
 function Objects(obj) {
   const [clicked, setClicked] = useState(false);
+  const api = useApi();
 
   const handlebutton = () => {
     setClicked(!clicked);
+  };
+
+  const deleteobject = () => {
+    api
+      .delete("/object", {
+        params: {
+          id: obj.object.id,
+        },
+      })
+      .then();
   };
 
   return (
@@ -19,6 +31,9 @@ function Objects(obj) {
           {clicked === true ? "moins d'info" : "plus d'info"}
         </button>
         {clicked === true ? obj.object.info : null}
+        <button type="button" className="button-delete" onClick={deleteobject}>
+          supprimer l'offre
+        </button>
       </h6>
     </div>
   );

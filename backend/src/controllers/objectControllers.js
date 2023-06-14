@@ -30,10 +30,10 @@ const handleFilter = (req, res) => {
     });
 };
 
-const postOffer = (req, res) => {
+const postObject = (req, res) => {
   const { title, genrevalue, pricevalue, consolevalue, info } = req.body.filter;
   models.object
-    .offerpost(
+    .objectpost(
       title,
       parseInt(genrevalue, 10),
       parseInt(pricevalue, 10),
@@ -53,8 +53,25 @@ const postOffer = (req, res) => {
     });
 };
 
+const deleteObject = (req, res) => {
+  models.object
+    .deleteObject(parseInt(req.query.id, 10))
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   getAll,
   handleFilter,
-  postOffer,
+  postObject,
+  deleteObject,
 };
