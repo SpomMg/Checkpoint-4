@@ -30,7 +30,31 @@ const handleFilter = (req, res) => {
     });
 };
 
+const postOffer = (req, res) => {
+  const { title, genrevalue, pricevalue, consolevalue, info } = req.body.filter;
+  models.object
+    .offerpost(
+      title,
+      parseInt(genrevalue, 10),
+      parseInt(pricevalue, 10),
+      parseInt(consolevalue, 10),
+      info
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   getAll,
   handleFilter,
+  postOffer,
 };

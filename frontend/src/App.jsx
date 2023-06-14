@@ -1,8 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Home from "./pages/Home";
 import Creation from "./pages/Creation";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
@@ -13,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Creation" element={<Creation />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
