@@ -24,16 +24,15 @@ const hashPassword = async (password) => {
 };
 
 const verifyPassword = (req, res) => {
-  console.log(req.user);
   argon2
-    .verify(req.user.password, req.body.password)
+    .verify(req.user.password, req.body.info.password)
     .then((isVerified) => {
       if (isVerified) {
         const payload = {
           sub: {
             id: req.user.id,
-            name: req.user.name,
-            role: req.user.user_role,
+            email: req.user.email,
+            admin: req.user.admin,
           },
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {

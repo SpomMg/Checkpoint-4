@@ -5,6 +5,7 @@ export default function Register() {
   return (
     <header className="App-header">
       <Myheader />
+      <h3>Creation de compte</h3>
       <Registration />
     </header>
   );

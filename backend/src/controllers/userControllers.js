@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable consistent-return */
 const joi = require("joi");
 const models = require("../models");
@@ -35,6 +36,19 @@ const postUser = async (req, res) => {
     });
 };
 
+const getUserByLoginToNext = async (req, res, next) => {
+  const login = req.body.info.email;
+  if (!login) res.sendStatus(422);
+  const result = await models.user.getUserByLogin(login);
+  if (result) {
+    if (result[0] != null) {
+      req.user = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
+
 module.exports = {
   postUser,
+  getUserByLoginToNext,
 };

@@ -18,5 +18,14 @@ class UserManager extends AbstractManager {
       [email, password]
     );
   };
+
+  getUserByLogin = async (login) => {
+    return this.database
+      .query(`SELECT * FROM user WHERE email=?`, [login])
+      .then(([result]) => result)
+      .catch(() => {
+        return false;
+      });
+  };
 }
 module.exports = UserManager;

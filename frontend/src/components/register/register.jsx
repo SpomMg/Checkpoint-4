@@ -55,7 +55,7 @@ function Registration() {
       <div className="input-part">
         <h6>password</h6>
         <input
-          type="text"
+          type="password"
           onChange={(e) => setPassword(e.target.value)}
           className="form-input"
         />
