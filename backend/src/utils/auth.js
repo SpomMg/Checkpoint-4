@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable import/no-extraneous-dependencies */
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 

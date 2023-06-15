@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable import/no-extraneous-dependencies */
 const joi = require("joi");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
