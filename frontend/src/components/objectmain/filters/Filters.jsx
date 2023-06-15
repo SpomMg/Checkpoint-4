@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import useApi from "../../../services/useApi";
 import Objects from "../object/Object";
+import "./Filters.css";
 
 function Filters() {
   const [objects, setObjects] = useState([]);
   const [genreOptions, setGenreOptions] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
   const [consoleOptions, setConsoleOptions] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const genreRef = useRef();
   const priceRef = useRef();
@@ -50,13 +52,10 @@ function Filters() {
   }, []);
 
   useEffect(() => {
-    genreRef.current.value = 0;
-    priceRef.current.value = 0;
-    consoleRef.current.value = 0;
     api.get("/object").then((response) => {
       setObjects(response.data);
     });
-  }, []);
+  }, [refresh]);
 
   const resetFilters = () => {
     genreRef.current.value = 0;
@@ -76,22 +75,41 @@ function Filters() {
       pricemultifilter,
       consolemultifilter,
     };
-    api
-      .get("/object/filter", {
-        params: {
-          filter: currentFilters,
-        },
-      })
-      .then((response) => {
-        setObjects(response.data);
-      });
+    if (
+      genremultifilter === 0 &&
+      pricemultifilter === 0 &&
+      consolemultifilter === 0
+    ) {
+      api
+        .get("/object")
+        .then((response) => {
+          setObjects(response.data);
+        })
+        .then((response) => {
+          setObjects(response.data);
+        });
+    } else {
+      api
+        .get("/object/filter", {
+          params: {
+            filter: currentFilters,
+          },
+        })
+        .then((response) => {
+          setObjects(response.data);
+        });
+    }
   };
 
+  useEffect(() => {
+    resetFilters();
+  }, [refresh]);
+
   return (
-    <div>
-      <div className="offersemploi-filters">
+    <div className="filter-maindiv">
+      <div className="object-filters">
         <select
-          className="offersemploi-select"
+          className="object-select"
           ref={genreRef}
           onChange={() => MultiFilter()}
         >
@@ -99,7 +117,7 @@ function Filters() {
           {genreOptions}
         </select>
         <select
-          className="offersemploi-select"
+          className="object-select"
           ref={priceRef}
           onChange={() => MultiFilter()}
         >
@@ -107,7 +125,7 @@ function Filters() {
           {priceOptions}
         </select>
         <select
-          className="offersemploi-select"
+          className="object-select"
           ref={consoleRef}
           onChange={() => MultiFilter()}
         >
@@ -119,7 +137,14 @@ function Filters() {
         </button>
       </div>
       {objects.map((object) => {
-        return <Objects key={object.id} object={object} />;
+        return (
+          <Objects
+            key={object.id}
+            obj={object}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+        );
       })}
     </div>
   );

@@ -80,6 +80,16 @@ function ObjectCreator() {
           filter: { title, genrevalue, pricevalue, consolevalue, info },
         })
         .then(() => {
+          toast.success("Offre validé !", {
+            position: "top-center",
+            autoClose: 1900,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
           setTimeout(() => {
             navigate("/");
           }, 2000);

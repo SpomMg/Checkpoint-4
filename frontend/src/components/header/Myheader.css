@@ -1,0 +1,14 @@
+.main-header {
+  background-color: #282c34;
+  width: 100%;
+  color: white;
+}
+.buttons {
+  position: absolute;
+  right: 5%;
+  top: 2%;
+}
+
+.navlink-menu {
+  margin-right: 10%;
+}
