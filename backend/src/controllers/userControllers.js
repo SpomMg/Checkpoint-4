@@ -4,23 +4,6 @@ const joi = require("joi");
 const models = require("../models");
 const { hashPassword } = require("../utils/auth");
 
-// const postUser = (req, res) => {
-//   const { email, password } = req.body.info;
-//   models.user
-//     .userpost(email, password)
-//     .then(([result]) => {
-//       if (result.affectedRows === 0) {
-//         res.sendStatus(404);
-//       } else {
-//         res.sendStatus(204);
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
-
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? "required" : "optional";
   return joi
