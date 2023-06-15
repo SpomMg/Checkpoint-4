@@ -14,6 +14,9 @@ function Myheader() {
         <NavLink className="navlink-menu-creation" to="/Creation">
           Creation
         </NavLink>
+        <NavLink className="navlink-menu-creation" to="/Register">
+          Register
+        </NavLink>
       </div>
     </div>
   );

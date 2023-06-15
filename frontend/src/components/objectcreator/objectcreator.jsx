@@ -130,7 +130,7 @@ function ObjectCreator() {
         />
       </div>
       <div className="button">
-        <button type="button" onClick={postObject}>
+        <button type="submit" onClick={postObject}>
           Valider
         </button>
       </div>
